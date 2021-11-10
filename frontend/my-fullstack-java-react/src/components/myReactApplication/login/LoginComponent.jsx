@@ -22,9 +22,29 @@ class LoginComponent extends Component {
             }
         );    
     }
+
+    //history has many properties to navigate through pages
+    //Using Jwt
+    loginClicked = () => {
+        AuthenticationService.login(this.state.userName, this.state.password)
+        .then( response => 
+            {                
+                AuthenticationService.registerSuccessfulLoginForJwt(this.state.userName,response.data.token)
+                this.props.history.push(`/welcome/${this.state.userName}`)
+            }
+        )
+        .catch(() => 
+            {
+                this.setState( {
+                    hasLoginFailed: true
+                })
+            }
+        )      
+    }
    
     //history has many properties to navigate through pages
-    loginClicked = () => {
+    //Using Basic Auth
+    /*loginClicked = () => {
         AuthenticationService.login(this.state.userName, this.state.password)
         .then( () => 
             {
@@ -39,7 +59,7 @@ class LoginComponent extends Component {
                 })
             }
         )      
-    }
+    }*/
 
     render() {
         return (

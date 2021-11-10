@@ -1,11 +1,12 @@
 import axios from "axios";
 import { Component } from "react";
+import { API_URL } from "../../Constants";
 
 class HelloWorldService extends Component {
 
     executeHelloWorldService() {
         
-        return axios.get("http://localhost:8080/api/todos/hello-world")               
+        return axios.get(`${API_URL}/api/todos/hello-world`)               
     }
 
 
