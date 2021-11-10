@@ -1,4 +1,4 @@
-package com.myjavaproject.webservices.myJavaProject.auth.basic;
+package com.myjavaproject.auth.basic;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

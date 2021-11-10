@@ -1,4 +1,4 @@
-package com.myjavaproject.webservices.myJavaProject.auth.basic;
+package com.myjavaproject.auth.basic;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
