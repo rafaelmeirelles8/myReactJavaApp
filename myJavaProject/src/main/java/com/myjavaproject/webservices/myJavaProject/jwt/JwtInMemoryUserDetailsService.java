@@ -1,5 +1,8 @@
 package com.myjavaproject.webservices.myJavaProject.jwt;
 
+import com.myjavaproject.webservices.myJavaProject.User.User;
+import com.myjavaproject.webservices.myJavaProject.User.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -7,12 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class JwtInMemoryUserDetailsService implements UserDetailsService {
 
   static List<JwtUserDetails> inMemoryUserList = new ArrayList<>();
+
+  @Autowired
+  private UserRepository userRepository;
 
   static {
     inMemoryUserList.add(new JwtUserDetails(1L, "rafael",
@@ -21,14 +26,14 @@ public class JwtInMemoryUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Optional<JwtUserDetails> findFirst = inMemoryUserList.stream()
-        .filter(user -> user.getUsername().equals(username)).findFirst();
-
-    if (!findFirst.isPresent()) {
-      throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
+    User user = userRepository.findByUsername(username);
+    if (user == null) {
+      throw new UsernameNotFoundException("User not found with username: " + username);
     }
 
-    return findFirst.get();
+    JwtUserDetails userDetails = new JwtUserDetails(user.getId(), user.getUsername(), user.getPassword(), "ROLE_USER_2");
+
+    return userDetails;
   }
 
 }
