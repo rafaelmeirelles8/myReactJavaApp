@@ -1,13 +1,17 @@
 package com.myjavaproject.webservices.myJavaProject.Todo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class TodoService {
+public class TodoJpaService {
 
+    @Autowired
+    private TodoRepository todoRepository;
 
     private static List<Todo> todoList = new ArrayList<>();
 
@@ -18,39 +22,27 @@ public class TodoService {
     }
 
     public Todo getTodoById(long todoId) {
-        Todo todoReturn = todoList.stream()
-                .filter(todo -> todo.getId() == todoId)
-                .findFirst().get();
-
-        return todoReturn;
+        return todoRepository.findById(todoId).get();
     }
 
     public List<Todo> getAllTodosByUser(String username) {
-        return todoList;
+        return todoRepository.findAllByUsername(username);
     }
 
     public Todo deleteTodoByUserNameAndId(long id) {
-        Todo deleteTodo = todoList.stream()
-                .filter(todo -> todo.getId() == id)
-                .findFirst().get();
+        Todo deleteTodo = todoRepository.findById(id).get();
 
         if(deleteTodo != null) {
-            todoList.remove(deleteTodo);
+            todoRepository.delete(deleteTodo);
         }
 
         return deleteTodo;
     }
 
     public Todo saveTodo(Todo todo) {
-        if(todo.getId() == -1 || todo.getId() == 0) {
-            todo.setId(todoList.size() + 1L);
-        }
-        else {
-            deleteTodoByUserNameAndId(todo.getId());
-        }
-        todoList.add(todo);
+        Todo todoUpdated = todoRepository.save(todo);
 
-        return todo;
+        return todoUpdated;
     }
 
 }
