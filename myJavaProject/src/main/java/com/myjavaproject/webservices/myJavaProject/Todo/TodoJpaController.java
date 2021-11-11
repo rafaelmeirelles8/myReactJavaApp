@@ -1,5 +1,7 @@
 package com.myjavaproject.webservices.myJavaProject.Todo;
 
+import com.myjavaproject.webservices.myJavaProject.User.User;
+import com.myjavaproject.webservices.myJavaProject.User.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ public class TodoJpaController {
     @Autowired
     private final TodoJpaService todoService;
 
+    @Autowired
+    private final UserService userService;
+
     @GetMapping(path="/jpa/hello-world")
     public String helloWorld() {
         return "Hello World";
@@ -26,12 +31,13 @@ public class TodoJpaController {
 
     @GetMapping(path = "/jpa/username/{username}/todos")
     public List<Todo> getAllTodos(@PathVariable String username) {
-        return todoService.getAllTodosByUser(username);
+        User user = userService.getUserByUsername(username);
+        return todoService.getAllTodosByUser(user);
     }
 
     @DeleteMapping(path = "/jpa/username/{username}/todos/{todoId}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long todoId) {
-        Todo todo = todoService.deleteTodoByUserNameAndId(todoId);
+        Todo todo = todoService.deleteTodoById(todoId);
 
         if(todo != null) {
             return ResponseEntity.noContent().build();
@@ -51,7 +57,8 @@ public class TodoJpaController {
     public ResponseEntity<Todo> updateTodo(@PathVariable String username,
                                            @PathVariable long id,
                                            @RequestBody Todo todo) {
-        todo.setUsername(username);
+        User user = userService.getUserByUsername(username);
+        todo.setUser(user);
         Todo updatedTodo = todoService.saveTodo(todo);
 
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
@@ -60,11 +67,11 @@ public class TodoJpaController {
     @PostMapping(path = "/jpa/username/{username}/todos")
     public ResponseEntity<Void> createTodo(@PathVariable String username,
                                            @RequestBody Todo todo) {
-        todo.setUsername(username);
+        User user = userService.getUserByUsername(username);
+        todo.setUser(user);
         Todo newTodo = todoService.saveTodo(todo);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newTodo.getId()).toUri();
-
 
         return ResponseEntity.created(uri).build();
     }

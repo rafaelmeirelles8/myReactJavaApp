@@ -1,12 +1,11 @@
 package com.myjavaproject.webservices.myJavaProject.Todo;
 
+import com.myjavaproject.webservices.myJavaProject.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -19,7 +18,10 @@ public class Todo {
     @GeneratedValue
     private Long id;
 
-    private String username;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
     private String description;
     private Date targetDate;
     private boolean isDone;

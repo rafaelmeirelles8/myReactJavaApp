@@ -1,5 +1,6 @@
 package com.myjavaproject.webservices.myJavaProject.Todo;
 
+import com.myjavaproject.webservices.myJavaProject.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +17,20 @@ public class TodoJpaService {
     private static List<Todo> todoList = new ArrayList<>();
 
     static {
-        todoList.add(new Todo(1L, "Rafael", "Study React", new Date(), false));
-        todoList.add(new Todo(2L, "Mariana", "Study Mkt", new Date(), false));
-        todoList.add(new Todo(3L, "Fred", "Study Soccer", new Date(), false));
+        todoList.add(new Todo(1L, new User(), "Study React", new Date(), false));
+        todoList.add(new Todo(2L, new User(), "Study Mkt", new Date(), false));
+        todoList.add(new Todo(3L, new User(), "Study Soccer", new Date(), false));
     }
 
     public Todo getTodoById(long todoId) {
         return todoRepository.findById(todoId).get();
     }
 
-    public List<Todo> getAllTodosByUser(String username) {
-        return todoRepository.findAllByUsername(username);
+    public List<Todo> getAllTodosByUser(User user) {
+        return todoRepository.findAllByUser(user);
     }
 
-    public Todo deleteTodoByUserNameAndId(long id) {
+    public Todo deleteTodoById(long id) {
         Todo deleteTodo = todoRepository.findById(id).get();
 
         if(deleteTodo != null) {

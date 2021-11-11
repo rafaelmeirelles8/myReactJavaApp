@@ -9,4 +9,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
 }

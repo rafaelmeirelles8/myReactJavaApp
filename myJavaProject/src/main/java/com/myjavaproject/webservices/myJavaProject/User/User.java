@@ -1,12 +1,14 @@
 package com.myjavaproject.webservices.myJavaProject.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.myjavaproject.webservices.myJavaProject.Todo.Todo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -20,4 +22,8 @@ public class User {
 
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("user")
+    private List<Todo> todoList = new ArrayList<>();
 }

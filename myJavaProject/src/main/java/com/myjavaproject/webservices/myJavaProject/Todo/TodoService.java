@@ -1,5 +1,6 @@
 package com.myjavaproject.webservices.myJavaProject.Todo;
 
+import com.myjavaproject.webservices.myJavaProject.User.User;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +13,9 @@ public class TodoService {
     private static List<Todo> todoList = new ArrayList<>();
 
     static {
-        todoList.add(new Todo(1L, "Rafael", "Study React", new Date(), false));
-        todoList.add(new Todo(2L, "Mariana", "Study Mkt", new Date(), false));
-        todoList.add(new Todo(3L, "Fred", "Study Soccer", new Date(), false));
+        todoList.add(new Todo(1L, new User(), "Study React", new Date(), false));
+        todoList.add(new Todo(2L, new User(), "Study Mkt", new Date(), false));
+        todoList.add(new Todo(3L, new User(), "Study Soccer", new Date(), false));
     }
 
     public Todo getTodoById(long todoId) {
