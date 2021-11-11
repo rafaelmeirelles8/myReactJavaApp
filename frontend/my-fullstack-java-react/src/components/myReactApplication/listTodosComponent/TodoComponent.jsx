@@ -16,8 +16,7 @@ class TodoComponent extends Component {
         }
     }
 
-    componentDidMount = () => {       
-        console.log(this.state.id)
+    componentDidMount = () => {               
         if(this.state.id === '-1')
             return
 
@@ -37,7 +36,6 @@ class TodoComponent extends Component {
 
     onSubmit = (values) => {
         let userName = AuthenticationService.getLoggedInUserName()
-
         
         let todo = {
             id: this.state.id,

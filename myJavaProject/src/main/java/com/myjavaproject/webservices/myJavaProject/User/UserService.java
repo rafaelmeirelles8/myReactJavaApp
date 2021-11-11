@@ -18,4 +18,22 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public User deleteUserById(long id) {
+        User user = userRepository.findById(id).get();
+
+        if(user != null) {
+            userRepository.deleteById(id);
+        }
+
+        return user;
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User getUserById(long id) {
+        return userRepository.findById(id).get();
+    }
 }

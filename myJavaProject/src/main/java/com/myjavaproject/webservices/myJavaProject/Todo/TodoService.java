@@ -30,7 +30,7 @@ public class TodoService {
         return todoList;
     }
 
-    public Todo deleteTodoByUserNameAndId(long id) {
+    public Todo deleteTodoById(long id) {
         Todo deleteTodo = todoList.stream()
                 .filter(todo -> todo.getId() == id)
                 .findFirst().get();
@@ -47,7 +47,7 @@ public class TodoService {
             todo.setId(todoList.size() + 1L);
         }
         else {
-            deleteTodoByUserNameAndId(todo.getId());
+            deleteTodoById(todo.getId());
         }
         todoList.add(todo);
 

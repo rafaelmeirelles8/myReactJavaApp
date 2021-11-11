@@ -11,6 +11,7 @@ import WelcomeComponent from "./welcomeComponent/WelcomeComponent";
 import ErrorComponent from "./errorComponent/ErrorComponent";
 import TodoComponent from "./listTodosComponent/TodoComponent";
 import ListUsersComponent from "./userComponent/ListUsersComponent";
+import UserComponent from "./userComponent/UserComponent";
 
 class MyApp extends Component {
 
@@ -27,6 +28,7 @@ class MyApp extends Component {
                         <AuthenticatedRoute path="/users/" component={ListUsersComponent}></AuthenticatedRoute>
                         <AuthenticatedRoute path="/logout" component={LogoutComponent}></AuthenticatedRoute>
                         <AuthenticatedRoute path="/updateTodo/:id" component={TodoComponent}></AuthenticatedRoute>
+                        <AuthenticatedRoute path="/updateUser/:id" component={UserComponent}></AuthenticatedRoute>
                         <Route component={ErrorComponent}></Route>
                     </Switch>
                     <FooterComponent />

@@ -32,7 +32,7 @@ public class TodoController {
 
     @DeleteMapping(path = "/username/{username}/todos/{todoId}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long todoId) {
-        Todo todo = todoService.deleteTodoByUserNameAndId(todoId);
+        Todo todo = todoService.deleteTodoById(todoId);
 
         if(todo != null) {
             return ResponseEntity.noContent().build();

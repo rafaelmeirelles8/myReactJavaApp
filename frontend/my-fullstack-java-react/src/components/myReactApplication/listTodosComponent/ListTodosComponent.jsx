@@ -75,7 +75,7 @@ class ListTodosComponent extends Component {
 
         console.log("render")
         return (
-            <div>
+            <>
                 <h1>List Todo</h1>
                 <div className="container">
                     {this.state.deletedMessage && <div className="alert alert-success">{this.state.deletedMessage}</div>}
@@ -104,11 +104,11 @@ class ListTodosComponent extends Component {
                             
                         </tbody>
                     </table>
-                    <div className="row">
+                    <div>
                         <button className="btn btn-success" onClick={this.createTodo}>Add</button>
                     </div>
                 </div>
-            </div>
+            </>
         )
     }
 }

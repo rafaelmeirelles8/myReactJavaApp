@@ -1,10 +1,10 @@
-.thead,
-.tfoot {
+thead,
+tfoot {
     background-color: #3f87a6;
     color: #fff;
 }
 
-.tbody {
+tbody {
     background-color: #e4f0f5;
 }
 
@@ -16,12 +16,12 @@
     font-size: .8rem;
 }
 
-.td,
-.th {
+td,
+th {
     border: 1px solid rgb(190, 190, 190);
     padding: 5px 10px;
 }
 
-.td {
+td {
     text-align: center;
 }
