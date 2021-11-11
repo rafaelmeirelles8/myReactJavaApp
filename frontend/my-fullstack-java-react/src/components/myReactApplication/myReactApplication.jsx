@@ -10,6 +10,7 @@ import LogoutComponent from "./login/LogoutComponent";
 import WelcomeComponent from "./welcomeComponent/WelcomeComponent";
 import ErrorComponent from "./errorComponent/ErrorComponent";
 import TodoComponent from "./listTodosComponent/TodoComponent";
+import ListUsersComponent from "./userComponent/ListUsersComponent";
 
 class MyApp extends Component {
 
@@ -23,6 +24,7 @@ class MyApp extends Component {
                         <Route path="/login" component={LoginComponent}></Route>
                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}></AuthenticatedRoute>
                         <AuthenticatedRoute path="/todos/" component={ListTodosComponent}></AuthenticatedRoute>
+                        <AuthenticatedRoute path="/users/" component={ListUsersComponent}></AuthenticatedRoute>
                         <AuthenticatedRoute path="/logout" component={LogoutComponent}></AuthenticatedRoute>
                         <AuthenticatedRoute path="/updateTodo/:id" component={TodoComponent}></AuthenticatedRoute>
                         <Route component={ErrorComponent}></Route>

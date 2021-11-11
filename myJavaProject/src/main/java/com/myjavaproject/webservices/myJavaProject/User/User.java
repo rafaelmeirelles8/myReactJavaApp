@@ -26,4 +26,5 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties("user")
     private List<Todo> todoList = new ArrayList<>();
+
 }
