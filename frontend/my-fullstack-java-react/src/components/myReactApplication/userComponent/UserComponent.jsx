@@ -1,7 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Component } from "react";
 import UserService from "../../../api/myJavaApp/UserService";
-import AuthenticationService from "../authentication/AuthenticationService";
 
 class UserComponent extends Component {
 
@@ -10,10 +9,24 @@ class UserComponent extends Component {
 
         this.state = {
             id : this.props.match.params.id,
+            password : '',
             username: '',
             name: '',
             age: ''
         }
+    }
+
+    validate = (values) => {
+        let errors = {}
+
+        if(values.username === '')
+            errors.username = "Username is required"
+        else if(values.name === '')
+            errors.name = "Name is required"        
+        else if(values.age < 0)
+            errors.age = "Age must be bigger than 0!"
+
+        return errors
     }
 
 
@@ -26,6 +39,7 @@ class UserComponent extends Component {
             this.setState( 
                 {
                     id: response.data.id,
+                    password: response.data.password,
                     username: response.data.username,
                     name: response.data.name,
                     age: response.data.age
@@ -34,11 +48,11 @@ class UserComponent extends Component {
         .catch()
     }
 
-    onSubmit = (values) => {
-        let userName = AuthenticationService.getLoggedInUserName()
+    onSubmit = (values) => {        
         
         let user = {
             id: this.state.id,
+            password: this.state.password,
             username: values.username,
             name: values.name,
             age: values.age
