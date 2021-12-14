@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.myjavaproject.webservices.myJavaProject.User.UserRegistrationValidator.*;
+
 @Service
 public class UserService {
 
@@ -30,6 +32,10 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        isAdult()
+                .and(isUsernameValid())
+                .apply(user);
+
         return userRepository.save(user);
     }
 

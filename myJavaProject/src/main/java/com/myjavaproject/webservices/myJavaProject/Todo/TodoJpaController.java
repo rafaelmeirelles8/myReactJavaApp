@@ -40,7 +40,7 @@ public class TodoJpaController {
         Todo todo = todoService.deleteTodoById(todoId);
 
         if(todo != null) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity. noContent().build();
         }
 
         return ResponseEntity.notFound().build();

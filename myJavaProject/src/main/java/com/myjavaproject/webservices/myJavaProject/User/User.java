@@ -1,6 +1,8 @@
 package com.myjavaproject.webservices.myJavaProject.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.myjavaproject.webservices.myJavaProject.Todo.Todo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonInclude(Include.NON_NULL)
 public class User {
 
     @Id
