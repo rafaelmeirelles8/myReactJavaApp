@@ -13,6 +13,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -32,9 +36,19 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-        isAdult()
+        Boolean userAlreadyExists = userRepository.usernameExists(user.getUsername());
+        if(userAlreadyExists
+                && user.getId() < 0) {
+            return null;
+        }
+
+        ValidatorResult apply = isAdult()
                 .and(isUsernameValid())
                 .apply(user);
+
+        if(!apply.equals(ValidatorResult.SUCCESS)) {
+            return null;
+        }
 
         return userRepository.save(user);
     }

@@ -28,6 +28,14 @@ public class User {
     private String username;
     private String password;
 
+    public User(String name, Integer age, String username, String password, List<Todo> todoList) {
+        this.name = name;
+        this.age = age;
+        this.username = username;
+        this.password = password;
+        this.todoList = todoList;
+    }
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties("user")
     private List<Todo> todoList = new ArrayList<>();
