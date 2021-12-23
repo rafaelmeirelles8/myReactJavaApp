@@ -11,6 +11,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,7 +37,8 @@ class UserServiceTest {
     @Test
     void canGetAllUsers() {
         // when
-            underTest.getAllUsers();
+        underTest.getAllUsers();
+
         // then
         verify(userRepository).findAll();
 
@@ -44,19 +50,23 @@ class UserServiceTest {
     }
 
     @Test
-    void canSaveUserLowerAge() {
+    void canNotCreateUserSameUsername() {
         //given
-        User user = new User("test", 50, "testUsername", "test", new ArrayList<>());
+        User user = new User(-1L, "test", 10, "testUsername", "test", new ArrayList<>());
+        given(userRepository.usernameExists(anyString()))
+                .willReturn(true);
 
         // when
-        User savedUser = underTest.saveUser(user);
+        //User savedUser = underTest.saveUser(user);
 
         // then
-        ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
-
-        verify(userRepository)
-                .save(userArgumentCaptor.capture());
+        //assertThat(savedUser).isNull();
+        assertThatThrownBy(() -> underTest.saveUser(user))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("username: " + user.getUsername() + " already exists");
+        verify(userRepository, never()).save(any());
     }
+
 
     @Test
     void canSaveUser() {

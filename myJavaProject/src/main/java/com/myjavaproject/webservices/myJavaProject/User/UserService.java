@@ -39,7 +39,7 @@ public class UserService {
         Boolean userAlreadyExists = userRepository.usernameExists(user.getUsername());
         if(userAlreadyExists
                 && user.getId() < 0) {
-            return null;
+            throw new IllegalStateException("username: " + user.getUsername() + " already exists");
         }
 
         ValidatorResult apply = isAdult()
