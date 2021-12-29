@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -38,8 +40,7 @@ public class Car {
     )
     private int year;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User owner;
+    @ManyToMany(mappedBy = "carList")
+    private List<User> owners = new ArrayList<>();
 
 }

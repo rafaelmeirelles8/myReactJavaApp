@@ -51,8 +51,11 @@ public class User {
     @JsonIgnoreProperties("user")
     private List<Todo> todoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("owner")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_car",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"))
+    @JsonIgnoreProperties
     private List<Car> carList = new ArrayList<>();
 
 
@@ -63,8 +66,14 @@ public class User {
         this.password = password;
         this.todoList = todoList;
         this.carList = carList;
+
     }
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
