@@ -52,7 +52,7 @@ class UserServiceTest {
     @Test
     void canNotCreateUserSameUsername() {
         //given
-        User user = new User(-1L, "test", 10, "testUsername", "test", new ArrayList<>());
+        User user = new User(-1L, "test", 10, "testUsername", "test", new ArrayList<>(), new ArrayList<>());
         given(userRepository.usernameExists(anyString()))
                 .willReturn(true);
 
@@ -71,7 +71,7 @@ class UserServiceTest {
     @Test
     void canSaveUser() {
         //given
-        User user = new User("test", 50, "testUsername", "test", new ArrayList<>());
+        User user = new User("test", 50, "testUsername", "test", new ArrayList<>(), new ArrayList<>());
 
         // when
         underTest.saveUser(user);

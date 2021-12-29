@@ -23,15 +23,15 @@ class UserComponent extends Component {
             errors.username = "Username is required"
         else if(values.name === '')
             errors.name = "Name is required"        
-        else if(values.age < 0)
-            errors.age = "Age must be bigger than 0!"
+        else if(values.age < 18)
+            errors.age = "Age must be bigger than 18!"
 
         return errors
     }
 
 
     componentDidMount = () => {               
-        if(this.state.id === '-1')
+        if(this.state.id < 0)
             return
         
         UserService.retrieveUserById(this.state.id)
@@ -58,7 +58,7 @@ class UserComponent extends Component {
             age: values.age
         }
 
-        if(this.state.id === -1) {
+        if(this.state.id < 0) {
             UserService.createUser(user)
             .then(response => this.props.history.push(`/users/`))
             .catch()

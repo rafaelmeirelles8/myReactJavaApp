@@ -29,7 +29,7 @@ class ListUsersComponent extends Component {
     }
 
     createUser = () => {
-        this.props.history.push(`/updateUser/-1`)
+        this.props.history.push(`/updateUser/${-1}`)
     }
 
     updateUser = (id) => {

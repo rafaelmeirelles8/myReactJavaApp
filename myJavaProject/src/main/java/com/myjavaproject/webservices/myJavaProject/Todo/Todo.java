@@ -23,6 +23,8 @@ public class Todo {
     private User user;
 
     private String description;
+
     private Date targetDate;
+
     private boolean isDone;
 }

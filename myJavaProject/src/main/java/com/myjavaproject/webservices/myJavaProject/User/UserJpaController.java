@@ -42,7 +42,7 @@ public class UserJpaController {
     @PostMapping(path = "/users")
     public ResponseEntity<Void> createUser(@RequestBody User user) {
         User newUser = userService.saveUser(user);
-        if(user == null) {
+        if(newUser == null) {
             return ResponseEntity.noContent().build();
         }
 
